@@ -6,11 +6,11 @@ const getAllUsers = (req, res) => {
   });
 };
 
-const createNewUser = async (id, username, email, password) => {
+const createNewUser = async (username, email, password) => {
   try {
     const [rows] = await con.query(
-      "INSERT INTO `user` (id, username, email, password) VALUES (?, ?, ?, ?)",
-      [id, username, email, password],
+      "INSERT INTO `user` (username, email, password) VALUES (?, ?, ?)",
+      [username, email, password],
     );
     console.log("User created with ID:", rows.insertId);
     return rows.insertId;

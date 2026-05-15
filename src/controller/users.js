@@ -10,8 +10,8 @@ const getAllUsers = async (req, res) => {
 };
 
 const createNewUser = async (req, res) => {
-  const { id, username, email, password } = req.body;
-  const data = await usersModel.createNewUser();
+  const { username, email, password } = req.body;
+  const data = await usersModel.createNewUser(username, email, password);
   console.log(data);
   res.json({
     message: "CREATE new user account",
