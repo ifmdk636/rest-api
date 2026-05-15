@@ -2,7 +2,7 @@ import express from "express";
 import router from "./routes/users.js";
 import middlewareLogReq from "./middleware/logs.js";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: "../src/config/.env" });
 
 const port = process.env.PORT;
 const app = express();

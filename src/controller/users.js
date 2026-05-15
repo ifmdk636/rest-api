@@ -2,19 +2,20 @@ import con from "../config/config.js";
 import usersModel from "../models/users.js";
 
 const getAllUsers = async (req, res) => {
-  const [data] = await usersModel.getAllUsers();
-
-  res.json({
-    message: "GET all users success",
-    data: data,
-  });
+  try {
+    const [data] = await usersModel.getAllUsers();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-const createNewUser = (req, res) => {
-  const { email } = req.body;
-  console.log(req.body);
+const createNewUser = async (req, res) => {
+  const { id, username, email, password } = req.body;
+  const data = await usersModel.createNewUser();
+  console.log(data);
   res.json({
     message: "CREATE new user account",
+    data: data,
   });
 };
 

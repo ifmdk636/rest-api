@@ -1,20 +1,21 @@
-import mysql2 from "mysql2";
+import mysql2 from "mysql2/promise"; // <-- Add /promise here
 import dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const db_password = process.env.DB_PASSWORD;
 const db = process.env.DB;
+const db_port = process.env.PORT_DB;
 
-let con = mysql2.createPool({
+// Create the promise-based pool
+const con = mysql2.createPool({
   host: "localhost",
   user: "root",
+  database: "rest-api",
   password: db_password,
-  database: db,
+  port: db_port,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
-
-// con.connect(function (err) {
-//   if (err) throw err;
-//   console.log("Connected");
-// });
 
 export default con;
