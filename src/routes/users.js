@@ -4,12 +4,6 @@ import userController from "../controller/users.js";
 
 const router = express.Router();
 
-// router.get("/", (req, res) => {
-//   res.json({
-//     message: "Get data success",
-//   });
-// });
-
 // Create - POST
 router.post("/", userController.createNewUser);
 
@@ -17,7 +11,7 @@ router.post("/", userController.createNewUser);
 router.get("/users", userController.getAllUsers);
 
 // Update - PATCH
-router.patch("/:idUser", userController.udpateUser);
+router.patch("/:idUser", userController.updateUser);
 
 // Delete - DELETE
 router.delete("/:idUser", userController.deleteUser);

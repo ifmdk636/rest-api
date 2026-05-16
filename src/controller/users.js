@@ -3,9 +3,15 @@ import usersModel from "../models/users.js";
 
 const getAllUsers = async (req, res) => {
   try {
-    const [data] = await usersModel.getAllUsers();
+    const [rows] = await con.query("SELECT * FROM `user`");
+    return res.status(200).json({
+      success: true,
+      message: "GET Data Success",
+      data: rows,
+    });
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -19,24 +25,46 @@ const createNewUser = async (req, res) => {
   });
 };
 
-const udpateUser = (req, res) => {
+const updateUser = async (req, res) => {
   const { idUser } = req.params;
-  console.log(idUser);
-  res.status(202).json({
+  const { username, email, password } = req.body;
+
+  try {
+    // Pastikan model menerima idUser juga
+    let update = await usersModel.updateUser(idUser, username, email, password);
+
+    if (!update.success || update.affectedRows === 0) {
+      return res.status(404).json({
+        message: "User tidak ditemukan atau tidak ada perubahan",
+      });
+    }
+
+    res.status(200).json({
+      message: "User berhasil diupdate",
+      data: update,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Terjadi kesalahan saat update user",
+      error: error.message,
+    });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  const { idUser } = req.params;
+  const result = await usersModel.deleteUser(idUser);
+  res.status(200).json({
+    message: "Berhasil di delete",
     data: idUser,
   });
+  if (!result) {
+    res.status(400).json({
+      message: "Data not found!",
+      data: result,
+    });
+  }
 };
 
-const deleteUser = (req, res) => {
-  const { idUser } = req.params;
-  res.json({
-    message: "Berhasil di delete",
-    data: {
-      id: id.data,
-      name: "Faris",
-      usia: "20 Tahun",
-    },
-  });
-};
-
-export default { getAllUsers, createNewUser, udpateUser, deleteUser };
+export default { getAllUsers, createNewUser, updateUser, deleteUser };
