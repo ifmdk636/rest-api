@@ -15,6 +15,24 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  try {
+    const { idUser } = req.params;
+    const rows = await usersModel.getUserById(idUser);
+    if (!rows) {
+      return res.status(400).json({
+        message: "Data not found",
+      });
+    }
+    return res.status(200).json({
+      message: "Get Data Success",
+      data: rows,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const createNewUser = async (req, res) => {
   const { username, email, password } = req.body;
   const data = await usersModel.createNewUser(username, email, password);
@@ -67,4 +85,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export default { getAllUsers, createNewUser, updateUser, deleteUser };
+export default {
+  getAllUsers,
+  getUserById,
+  createNewUser,
+  updateUser,
+  deleteUser,
+};

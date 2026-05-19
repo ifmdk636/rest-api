@@ -4,6 +4,11 @@ const getAllUsers = async () => {
   const [rows] = await con.query("SELECT * FROM `user`");
   console.log(rows);
 };
+const getUserById = async (idUser) => {
+  const [rows] = await con.query("SELECT * FROM `user` WHERE id = ?", [idUser]);
+
+  return rows[0];
+};
 
 const createNewUser = async (username, email, password) => {
   try {
@@ -50,4 +55,10 @@ const deleteUser = async (idUser) => {
     console.error(error);
   }
 };
-export default { getAllUsers, createNewUser, updateUser, deleteUser };
+export default {
+  getAllUsers,
+  getUserById,
+  createNewUser,
+  updateUser,
+  deleteUser,
+};

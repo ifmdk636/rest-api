@@ -14,8 +14,9 @@ app.use(express.json());
 // app.use(middlewareLogReq);
 
 // app.use("/users", router);
-app.post("/", router);
+app.post("/users", router);
 app.get("/users", router);
+app.get("/users/:idUser", router);
 app.patch("/:idUser", router);
 app.delete("/:idUser", router);
 
