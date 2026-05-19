@@ -28,6 +28,7 @@ npm start
 🚀 API Endpoints
 Example Base URL
 http://localhost:5000/api
+
 📌 Example CRUD Endpoints
 GET All Data
 GET /users
@@ -39,6 +40,7 @@ Response
     "email": "john@example.com"
   }
 ]
+
 GET Single Data
 GET /users/:id
 Response
@@ -47,6 +49,7 @@ Response
   "name": "John Doe",
   "email": "john@example.com"
 }
+
 POST Create Data
 POST /users
 Request Body
@@ -58,6 +61,7 @@ Response
 {
   "message": "User created successfully"
 }
+
 PUT Update Data
 PUT /users/:id
 Request Body
@@ -69,6 +73,7 @@ Response
 {
   "message": "User updated successfully"
 }
+
 DELETE Data
 DELETE /users/:id
 Response
@@ -79,8 +84,10 @@ Response
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
 );
+
 📦 Available Scripts
 Command	Description
 npm start	Run production server
